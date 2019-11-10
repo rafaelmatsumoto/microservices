@@ -22,13 +22,30 @@
       <v-spacer></v-spacer>
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
+        @click="drawer = !drawer"
         text
       >
         <v-icon>mdi-menu</v-icon>
       </v-btn>
     </v-app-bar>
+
+     <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      temporary
+      right
+      >
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="title">
+            Ticket Guru
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            A melhor bilheteria
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+    </v-navigation-drawer>
 
     <v-content>
       <router-view/>
@@ -42,7 +59,7 @@ export default {
   name: 'App',
 
   data: () => ({
-    //
+    drawer: null,
   }),
 };
 </script>
