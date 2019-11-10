@@ -9,7 +9,12 @@
         flat
         tile
       >
-        <v-card v-for="n in 26" :key="n" class="my-2 mx-auto" max-width="344">
+        <v-card
+          v-for="n in 26"
+          :key="n"
+          class="my-2 mx-auto"
+          max-width="344"
+          @click="openMovieInfo(n)">
           <v-img
             class="white--text ma-2"
             max-height="300px"
@@ -37,5 +42,10 @@
 <script>
 export default {
   name: 'Dashboard',
+  methods: {
+    openMovieInfo(id) {
+      this.$router.push({ path: `movie/${id}` });
+    },
+  },
 };
 </script>

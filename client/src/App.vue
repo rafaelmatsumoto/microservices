@@ -31,20 +31,15 @@
     </v-app-bar>
 
     <v-content>
-      <Dashboard/>
+      <router-view/>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import Dashboard from '@/components/Dashboard.vue';
 
 export default {
   name: 'App',
-
-  components: {
-    Dashboard,
-  },
 
   data: () => ({
     //
