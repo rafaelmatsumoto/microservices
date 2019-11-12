@@ -10,22 +10,18 @@
         tile
       >
         <v-card
-          v-for="n in 26"
-          :key="n"
+          v-for="movie in movies"
+          :key="movie.id"
           class="my-2 mx-auto"
           max-width="344"
-          @click="openMovieInfo(n)">
-          <v-img
-            class="white--text ma-2"
-            max-height="300px"
-            src="https://freeclassicimages.com/images/day-at-the-races-1937-french-movie-poster.jpg"
-          >
-          </v-img>
+          @click="openMovieInfo(movie.id)"
+        >
+          <v-img class="white--text ma-2" max-height="300px" :src="movie.image"> </v-img>
 
           <v-card-text>
-            <h2>Day-at-the-races</h2>
+            <h2>{{ movie.name }}</h2>
 
-            <div class="text--primary">Movie description</div>
+            <div class="text--primary">{{ movie.description }}</div>
           </v-card-text>
 
           <v-card-actions>
@@ -40,11 +36,25 @@
 </template>
 
 <script>
+import moviesRepository from '@/api/moviesRepository';
+
 export default {
   name: 'Dashboard',
+  data() {
+    return {
+      movies: [],
+    };
+  },
+  mounted() {
+    this.getMovies();
+  },
   methods: {
     openMovieInfo(id) {
       this.$router.push({ path: `movie/${id}` });
+    },
+    async getMovies() {
+      const movies = await moviesRepository.get();
+      this.movies = movies.data;
     },
   },
 };
