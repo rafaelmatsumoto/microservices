@@ -1,17 +1,8 @@
-import Repository from './Repository';
+import axios from 'axios';
 
-const resource = '/movies';
+const baseDomain = 'http://localhost:3000';
+const baseURL = `${baseDomain}`;
 
-export default {
-  get() {
-    return Repository.get(`${resource}`);
-  },
-
-  getMovie(movieId) {
-    return Repository.get(`${resource}/${movieId}`);
-  },
-
-  createMovie(payload) {
-    return Repository.post(`${resource}`, payload);
-  },
-};
+export default axios.create({
+  baseURL,
+});

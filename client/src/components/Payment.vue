@@ -9,15 +9,15 @@
         :width="width"
         color="light-blue"
       ></v-progress-circular>
-      <h1>Please give us your payment details:</h1>
+      <h1>Confirmar compra de: {{ movie.name }}</h1>
       <card class='stripe-card'
         :class='{ complete }'
         :stripe='stripeKey'
         @change='complete = $event.complete'
       />
-      <button class='pay-with-stripe' @click='pay' :disabled='!complete'>
-        Pay with credit card
-      </button>
+      <v-btn class='mt-2' @click='pay' :disabled='!complete'>
+        Comprar
+      </v-btn>
   </div>
 </template>
 
@@ -35,6 +35,8 @@ export default {
       width: 4,
     };
   },
+
+  props: ['movie'],
 
   computed: {
     stripeKey() {

@@ -25,8 +25,6 @@
           </v-card-text>
 
           <v-card-actions>
-            <v-btn color="green" text>Comprar</v-btn>
-
             <v-btn color="black" text>Info</v-btn>
           </v-card-actions>
         </v-card>
@@ -36,7 +34,7 @@
 </template>
 
 <script>
-import moviesRepository from '@/api/moviesRepository';
+import moviesActions from '@/api/moviesActions';
 
 export default {
   name: 'Dashboard',
@@ -53,7 +51,7 @@ export default {
       this.$router.push({ path: `movie/${id}` });
     },
     async getMovies() {
-      const movies = await moviesRepository.get();
+      const movies = await moviesActions.get();
       this.movies = movies.data;
     },
   },

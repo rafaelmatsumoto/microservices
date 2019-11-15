@@ -16,20 +16,16 @@
         <span>Movie pricing</span>
       </div>
     </v-row>
-    <Payment />
+    <v-btn color="green" @click="purchase">Comprar</v-btn>
   </div>
 </template>
 
 <script>
-import moviesRepository from '@/api/moviesRepository';
-import Payment from '@/components/Payment.vue';
+import moviesActions from '@/api/moviesActions';
 
 export default {
   name: 'Movie',
   props: ['id'],
-  components: {
-    Payment,
-  },
   data() {
     return {
       movie: {},
@@ -40,8 +36,12 @@ export default {
   },
   methods: {
     async getMovie() {
-      const response = await moviesRepository.getMovie(this.id);
+      const response = await moviesActions.getMovie(this.id);
       this.movie = response.data;
+    },
+
+    purchase() {
+      this.$router.push({ name: 'pay', params: { movie: this.movie } });
     },
   },
 };

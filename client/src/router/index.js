@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Movie from '../components/Movie.vue';
 import Dashboard from '../components/Dashboard.vue';
+import Payment from '../components/Payment.vue';
 
 Vue.use(VueRouter);
 
@@ -16,6 +17,12 @@ const routes = [
     name: 'movie',
     props: true,
     component: Movie,
+  },
+  {
+    path: '/pay',
+    name: 'pay',
+    props: true,
+    component: Payment,
   },
   {
     path: '/about',
