@@ -5,7 +5,7 @@
       color="cyan"
       dark
     >
-      <div class="d-flex align-center">
+      <div class="d-flex align-center homepage" @click="goHome">
         <v-img
           alt="Vuetify Logo"
           class="shrink mr-2"
@@ -61,5 +61,17 @@ export default {
   data: () => ({
     drawer: null,
   }),
+
+  methods: {
+    goHome() {
+      this.$router.push({ path: '/' });
+    },
+  },
 };
 </script>
+
+<style scoped>
+.homepage {
+  cursor: pointer;
+}
+</style>
