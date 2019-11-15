@@ -16,15 +16,20 @@
         <span>Movie pricing</span>
       </div>
     </v-row>
+    <Payment />
   </div>
 </template>
 
 <script>
 import moviesRepository from '@/api/moviesRepository';
+import Payment from '@/components/Payment.vue';
 
 export default {
   name: 'Movie',
   props: ['id'],
+  components: {
+    Payment,
+  },
   data() {
     return {
       movie: {},
