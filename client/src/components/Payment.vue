@@ -56,11 +56,26 @@ export default {
       const response = await paymentActions.charge(
         {
           token: stripeToken.token.id,
-          amount: 400,
+          amount: 2,
         },
       );
-      console.log(response);
       this.indeterminate = false;
+      if (!response.data.decline_code) {
+        this.$swal.fire(
+          {
+            icon: 'success',
+            title: 'Pagamento aprovado',
+            text: 'Seu lugar está confirmado',
+            showConfirmButton: false,
+            timer: 3000,
+          },
+        );
+        setTimeout(() => {
+          this.$router.push({ path: '/' });
+        }, 4000);
+      } else {
+        this.$swal.fire('Pagamento recusado', 'Por favor, tente novamente', 'error');
+      }
     },
   },
 };
