@@ -1,14 +1,16 @@
 <template>
   <div>
-     <v-progress-circular
-        v-show="indeterminate"
-        :indeterminate="indeterminate"
-        :rotate="rotate"
-        :size="size"
-        :value="value"
-        :width="width"
-        color="light-blue"
-      ></v-progress-circular>
+      <v-overlay :value="indeterminate">
+        <v-progress-circular
+            v-show="indeterminate"
+            :indeterminate="indeterminate"
+            :rotate="rotate"
+            :size="size"
+            :value="value"
+            :width="width"
+            color="light-blue"
+          ></v-progress-circular>
+      </v-overlay>
       <h1>Confirmar compra de: {{ movie.name }}</h1>
       <card class='stripe-card'
         :class='{ complete }'
@@ -16,13 +18,14 @@
         @change='complete = $event.complete'
       />
       <v-btn class='mt-2' @click='pay' :disabled='!complete'>
-        Comprar
+        Confirmar
       </v-btn>
   </div>
 </template>
 
 <script>
 import { Card, createToken } from 'vue-stripe-elements-plus';
+import paymentActions from '@/api/paymentActions';
 
 export default {
   data() {
@@ -49,11 +52,15 @@ export default {
   methods: {
     async pay() {
       this.indeterminate = true;
-      const token = await createToken();
-      console.log(token);
-      setTimeout(() => {
-        this.indeterminate = false;
-      }, 5000);
+      const stripeToken = await createToken();
+      const response = await paymentActions.charge(
+        {
+          token: stripeToken.token.id,
+          amount: 400,
+        },
+      );
+      console.log(response);
+      this.indeterminate = false;
     },
   },
 };
