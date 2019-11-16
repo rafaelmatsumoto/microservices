@@ -12,12 +12,18 @@
           ></v-progress-circular>
       </v-overlay>
       <h1>Confirmar compra de: {{ movie.name }}</h1>
+      <v-text-field
+        v-model="email"
+        prepend-icon="mdi-email"
+        class="email"
+        label="Email"
+      ></v-text-field>
       <card class='stripe-card'
         :class='{ complete }'
         :stripe='stripeKey'
         @change='complete = $event.complete'
       />
-      <v-btn class='mt-2' @click='pay' :disabled='!complete'>
+      <v-btn class='mt-2' @click='pay' :disabled='!complete && email !== null'>
         Confirmar
       </v-btn>
   </div>
@@ -36,6 +42,7 @@ export default {
       size: 32,
       value: 0,
       width: 4,
+      email: null,
     };
   },
 
@@ -57,10 +64,15 @@ export default {
         {
           token: stripeToken.token.id,
           amount: 2,
+          movie: this.movie.id,
+          email: this.email,
         },
       );
       this.indeterminate = false;
-      if (!response.data.decline_code) {
+      this.showNotification(response.data.decline_code);
+    },
+    showNotification(errorCode) {
+      if (!errorCode) {
         this.$swal.fire(
           {
             icon: 'success',
@@ -86,6 +98,11 @@ export default {
   width: 300px;
   border: 1px solid grey;
 }
+
+.email {
+  width: 300px;
+}
+
 .stripe-card.complete {
   border-color: green;
 }
