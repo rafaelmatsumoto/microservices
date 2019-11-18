@@ -63,7 +63,7 @@ export default {
       const response = await paymentActions.charge(
         {
           token: stripeToken.token.id,
-          amount: 2,
+          amount: this.movie.price,
           movie: this.movie.id,
           email: this.email,
         },

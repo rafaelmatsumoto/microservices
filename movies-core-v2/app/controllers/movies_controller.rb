@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-    before_action :set_movie, only: [:show, :destroy]
+    before_action :set_movie, only: [:show, :destroy, :update]
 
     def index
         @movies = Movie.all
@@ -20,6 +20,14 @@ class MoviesController < ApplicationController
         end
     end
 
+    def update
+        if @movie.update(movie_params)
+            render json: @movie, status: :update
+        else
+            render json: @movie.errors, status: :unprocessable_entity
+        end
+    end
+
     def destroy
         @movie.destroy
         head :no_content
@@ -32,6 +40,6 @@ class MoviesController < ApplicationController
     end
 
     def movie_params
-        params.require(:movie).permit(:name, :genre_id, :description, :image)
+        params.require(:movie).permit(:name, :genre_id, :description, :image, :release_date, :price)
     end
 end

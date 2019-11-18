@@ -12,8 +12,8 @@
     <v-row align="center">
       <div class="movie ml-5">
         <h1>{{ movie.name }}</h1>
-        <h2>{{ movie.description }}</h2>
-        <h2>Preço: 5 USD</h2>
+        <h3>{{ movie.description }}</h3>
+        <h3>Preço: {{ movie.price }} USD</h3>
       </div>
     </v-row>
     <v-btn color="green" @click="purchase">Comprar</v-btn>
