@@ -1,0 +1,9 @@
+version: '3'
+services:
+  database:
+    image: postgres:latest
+    container_name: moviescore_db_v2
+    volumes:
+      - ./dumps:/var/lib/postgresql
+    ports:
+      - "5432:5432"

@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Movie from '../components/Movie.vue';
+import Dashboard from '../components/Dashboard.vue';
+import Payment from '../components/Payment.vue';
 
 Vue.use(VueRouter);
 
@@ -8,7 +10,19 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home,
+    component: Dashboard,
+  },
+  {
+    path: '/movie/:id',
+    name: 'movie',
+    props: true,
+    component: Movie,
+  },
+  {
+    path: '/pay',
+    name: 'pay',
+    props: true,
+    component: Payment,
   },
   {
     path: '/about',
