@@ -4,6 +4,7 @@ from flask_mail import Mail, Message
 from dotenv import load_dotenv
 from os import getenv
 import requests
+import logging
 
 load_dotenv()
 app = Flask(__name__)
@@ -14,13 +15,16 @@ mail = Mail(app)
 @app.route('/', methods = ['POST'])
 def verify():
     email = request.json
-    data = requests.get('https://api.blazeverify.com/v1/verify?email=' + email['email'] + '&api_key=' + getenv('BLAZE_KEY'))
-    email_data = data.json()
+    verified_email = requests.get('https://api.blazeverify.com/v1/verify?email=' + email['email'] + '&api_key=' + getenv('BLAZE_KEY'))
+    email_data = verified_email.json()
     if email_data['state'] == "deliverable":
-        msg = Message("Ingresso",
-                  sender="from@example.com",
-                  recipients=[email['email']])
-        msg.body = "Aqui está seu ingresso"
-        msg.html = render_template('/mail.html')
-        mail.send(msg)
+        send_email(email)
     return email_data
+
+def send_email(email):
+    msg = Message("Ingresso",
+              sender="from@example.com",
+              recipients=[email['email']])
+    msg.body = "Aqui está seu ingresso metodo extraido"
+    msg.html = render_template('/mail.html')
+    mail.send(msg)
