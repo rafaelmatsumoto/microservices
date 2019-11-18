@@ -13,7 +13,7 @@
       <div class="movie ml-5">
         <h1>{{ movie.name }}</h1>
         <h2>{{ movie.description }}</h2>
-        <span>Movie pricing</span>
+        <h2>Preço: 5 USD</h2>
       </div>
     </v-row>
     <v-btn color="green" @click="purchase">Comprar</v-btn>
