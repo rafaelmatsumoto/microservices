@@ -18,6 +18,15 @@
   
     * git commit -t .gitmessage
 
+## Estrutura da aplicação
+
+<a href="https://ibb.co/ZVVm3dP"><img src="https://i.ibb.co/HVVd07s/microservices-Diagram.png" alt="microservices-Diagram" border="0"></a>
+
+- Serviço Rails: movies-core-v2
+- Serviço Node: movies-payment
+- Serviço Flask: movies-mailer
+- Front-end: client
+
 ## Autor
 
 👤 **Rafael Matsumoto**
